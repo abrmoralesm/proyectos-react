@@ -6,17 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-   "workspaces": [
+  "workspaces": [
     "projects/*"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abrmoralesm/proyectos-react.git"
   },
-   "devDependencies": {
+  "devDependencies": {
     "standard": "17.0.0"
   },
-    "eslintConfig": {
+  "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
+  },
+  "dependencies": {
+    "wouter": "^2.10.1"
   }
 }
