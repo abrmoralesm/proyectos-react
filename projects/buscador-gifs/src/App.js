@@ -1,25 +1,49 @@
-import React from "react";
+import React, { Suspense } from "react";
+import { Link, Route, Switch } from "wouter";
+
+import Header from "components/Header";
+
+import Register from 'pages/Register'
+import Login from "pages/Login";
+import SearchResults from "pages/SearchResults";
+import Detail from "pages/Detail";
+import ErrorPage from "pages/ErrorPage";
+
+import { UserContextProvider } from "context/UserContext";
+import { GifsContextProvider } from "context/GifsContext";
+
 import "./App.css";
-import ListOfGifs from "./components/ListOfGifs";
-import { Link, Route } from "wouter"
-import SignUpBanner from "./components/SignUpBanner";
 
+const HomePage = React.lazy(() => import("./pages/Home"));
 
-
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <SignUpBanner/>
-      <section className="App-content">
-        <h1>Jar</h1>
-        <Link to="/gif/akira">Gifs de Akira</Link>
-        <Link to="/gif/eevee">Gifs de Eevee</Link>
-        <Link to="/gif/pikachu">Gifs de Pikachu</Link>
-
-        <Route component={ListOfGifs} path="/gif/:keyword" />
-      </section>
-    </div>
+    <UserContextProvider>
+      <div className="App">
+        <Suspense fallback={null}>
+          <section className="App-content">
+            <Header />
+            <Link to="/">
+              <figure className="App-logo">
+                <img alt="Giffy logo" src="/logo.png" />
+              </figure>
+            </Link>
+            <GifsContextProvider>
+              <Switch>
+                <Route component={HomePage} path="/" />
+                <Route
+                  component={SearchResults}
+                  path="/search/:keyword/:rating?"
+                />
+                <Route component={Detail} path="/gif/:id" />
+                <Route component={Login} path="/login" />
+                <Route component={Register} path="/register" />
+                <Route component={ErrorPage} path="/:rest*" />
+              </Switch>
+            </GifsContextProvider>
+          </section>
+        </Suspense>
+      </div>
+    </UserContextProvider>
   );
 }
-
-export default App;
