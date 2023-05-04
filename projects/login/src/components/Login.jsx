@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-
+import {Alert}from "./Alert"
 
 
 function Login() {
@@ -11,8 +11,8 @@ function Login() {
     password: "",
   });
 
-  const { login, loginWithGoogle } = useAuth();
-   const [error, setError] = useState();
+  const { login, loginWithGoogle, resetPassword } = useAuth();
+   const [error, setError] = useState("");
   const navigate = useNavigate();
  
 
@@ -27,9 +27,9 @@ function Login() {
       setError(error.message);
     }
   };
-   const handleChange = ({ target: { name, value } }) => {
+   const handleChange = ({ target: { value, name } }) => 
      setUser({ ...user, [name]: value });
-   };
+   
 
   const handleGoogleSignin = async () => {
     try {
@@ -40,9 +40,16 @@ function Login() {
     }
   };
 
-  const handleResetPassword =() =>{
-    if (!user.emal)return setError("Please enter your password");
-    console.log('rest password')
+  const handleResetPassword = async(e) =>{
+    e.preventDefault();
+    if (!user.email)return setError("Please enter your password");
+    try{
+      await resetPassword(user.email)
+      setError("Check your email for reset link")
+    } catch(error){
+      setError(error.message)
+    
+    }
   }
 
   return (
@@ -77,18 +84,17 @@ function Login() {
             id='password'
             placeholder='******'
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                         onChange={handleChange}
-
-           
+            onChange={handleChange}
           />
         </div>
         <div className='flex items center justify-between'>
-
-          <button className='bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded  focus:outline-none focus:shadow-outline'>Login</button>
+          <button className='bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded  focus:outline-none focus:shadow-outline'>
+            Login
+          </button>
 
           <a
-            href='#!'
             className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
+            href='#!'
             onClick={handleResetPassword}
           >
             Forgot Password
