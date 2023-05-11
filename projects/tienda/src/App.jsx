@@ -23,7 +23,7 @@ function App() {
       <Header />
       <Cart />
       <Products products={filteredProducts} />
-      <Componente1 datos={datos} titulo='Lista de datos' />
+      <Componente1 datos={datos}titulo='Lista de datos' />
       <Componente2 datos={datos} titulo='Lista mayores de 24' />
       <Componente3 datos={datos} titulo='Componente3' />
 
