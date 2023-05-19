@@ -20,8 +20,9 @@ function App () {
     <div className='bg-slate-300 h-screen text-black flex flex-col'>
       <AuthProvider>
         <Navbar />
+
         <Componente1 />
-        <Componente2  />
+        <Componente2 />
         <Routes>
           <Route
             path='/'

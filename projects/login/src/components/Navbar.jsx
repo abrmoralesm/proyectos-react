@@ -1,33 +1,41 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  Nav,
+  NavContainer,
+  NavLink,
+  LogoutButton,
+  RegisterLink,
+} from "./NavStyled";
 
 function Navbar() {
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <nav className='bg-gray-800 py-4'>
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        <div className='flex justify-between'>
-          <div className='flex'>
-            <Link to='/' className='text-white text-xl font-bold mr-8'>
-              Home
-            </Link>
-            <Link to='/obras' className='text-white text-xl font-bold mr-8'>
-              Obras
-            </Link>
-            <Link to='/noticias' className='text-white text-xl font-bold'>
-              Noticias
-            </Link>
-          </div>
-          <div className='flex'>
-            <Link to='/login' className='text-white mr-4'>
-              Login
-            </Link>
-            <Link to='/register' className='text-white'>
-              Registro
-            </Link>
-          </div>
+    <Nav>
+      <NavContainer>
+        <div>
+          <NavLink to='/'>Home</NavLink>
+          <NavLink to='/obras'>Obras</NavLink>
+          <NavLink to='/noticias'>Noticias</NavLink>
         </div>
-      </div>
-    </nav>
+
+        <div>
+          <div>
+            {user ? (
+              <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+            ) : (
+              <NavLink to='/login'>Login</NavLink>
+            )}
+          </div>
+          {!user && <RegisterLink to='/register'>Registro</RegisterLink>}
+        </div>
+      </NavContainer>
+    </Nav>
   );
 }
 
