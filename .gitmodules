@@ -1,0 +1,3 @@
+[submodule "projects/pruebasReact"]
+	path = projects/pruebasReact
+	url = https://github.com/abrmoralesm/proyectos-react-pruebasReact.git
