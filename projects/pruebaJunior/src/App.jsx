@@ -9,11 +9,8 @@ const CAT_ENDPOINT_RANDOM_FACT = 'https://catfact.ninja/fact'
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com/'
 
 function App() {
-const [formulario, setFormulario] = useState({
-  nombre: 'abraham',
-  apellido: 'morales',
-  email: 'XXXXXX'
-})
+
+
 const [fact, setFact] = useState()
 const [imageUrl, setImageUrl] = useState()
 
@@ -53,30 +50,7 @@ const handleClick = () =>{
 }
   return (
     <main>
-    <label>
-      NOMBRE: 
-      <input value={formulario.nombre}
-      onChange={e=>{
-       setFormulario({
-        ...formulario,
-        nombre: e.target.value
-       })
-      }}
-      />
-    </label>
-    <label>
-      APELLIDOS:
-      <input value={formulario.apellido}
-      onChange={e=>{
-        setFormulario({
-          ...formulario,
-          apellido:e.target.value
-        })
-      }}
-       />
-    </label>
-    <p>{formulario.nombre} {formulario.apellido}</p>
-      <section>
+        <section>
         <h1>APP DE GATITOS</h1>
         <button onClick={handleClick}>Nuevo gatito</button>
         {fact && <p>{fact}</p>}
